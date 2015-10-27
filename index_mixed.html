@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta chrset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Robot Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <style>
+      button{
+      min-width:90px;
+      }
+    </style>
+  </head>
+  
+
+  <body>
+    <div class="container">
+      <div class="jumbotron text-center">
+        <h1>Robot Mission Control</h1>
+      </div> <!--Jumbotron -->
+
+      <div class="row">
+        <div class="col-xs-4">
+          <button id="fl" class="btn btn-lg btn-primary">&#8598</button>
+        </div>
+        
+        <div class="col-xs-4">
+          <button id="fwd" class="btn btn-lg btn-primary">&#8593</button>
+        </div>
+        <div class="col-xs-4">
+          <button id="fr" class="btn btn-lg btn-primary">&#8599</button>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-4">
+          <button id="left" class="btn btn-lg btn-primary">&#8592</button>
+        </div>
+        <div class="col-xs-4">
+          <button id="stop" class="btn btn-lg btn-primary">STOP</button>            
+        </div>
+        <div class="col-xs-4" >
+          <button id="right" class="btn btn-lg btn-primary">&#8594</button>
+        </div>
+      </div> <!-- row -->
+      
+      <div class="row">
+        <div class="col-xs-4">
+          <button id="rl" class="btn btn-lg btn-primary">&#8601</button>
+        </div>
+        
+        <div class="col-xs-4">
+          <button id="rev" class="btn btn-lg btn-primary">&#8595</button>
+        </div>
+        <div class="col-xs-4">
+          <button id="rr" class="btn btn-lg btn-primary">&#8600</button>
+        </div>
+      </div><!-- row-->
+    <script>
+      var socket = io();
+
+      $('#fwd').click(function(){
+      socket.emit('cmd', 'fwd');
+      });
+      
+      $('#fl').click(function(){
+      socket.emit('cmd', 'fl');
+      });
+
+      $('#fl').click(function(){
+      socket.emit('cmd', 'fr');
+      });
+
+      $('#rev').click(function(){
+      socket.emit('cmd', 'rev');
+      });
+
+      $('#stop').click(function(){
+      socket.emit('cmd', 'stop');
+      });
+
+      $('#left').click(function(){
+      socket.emit('cmd', 'left');
+      });
+
+      $('#right').click(function(){
+      socket.emit('cmd', 'right');
+      });
+
+    </script>
+    </div> <!-- container -->
+  </body>
+</html>
