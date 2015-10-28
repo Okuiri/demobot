@@ -18,7 +18,13 @@ controller.on('right:move', function(data) {
 });
 
 controller.on('left:move', function(data){
-  console.log('throttle: ' + data.y);
+  if(data.y >= 0 && data.y < 63){
+    console.log('forward');
+  }else if (data.y >= 180) {
+    console.log('reverse');
+  }else{
+    console.log('stop');
+  }
 });
 
 controller.on('connected', function(data) {
