@@ -14,7 +14,11 @@ controller.on('error', function(data) {
 });
 
 controller.on('right:move', function(data) {
-  console.log(data);
+  console.log('turn:' + data.x);
+});
+
+controller.on('left:move', function(data){
+  console.log('throttle: ' + data.y);
 });
 
 controller.on('connected', function(data) {
