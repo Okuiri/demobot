@@ -12,7 +12,7 @@ app.get('/', function(req,res){
     res.sendFile('index_mixed.html', {root: __dirname});
 });
 
-var fwd = 45;
+var fwd = 55;
 var turnl = 30;
 var turnr = 120;
 var tf = 40;
@@ -51,7 +51,7 @@ board.on("ready", function(){
                 s1.to(tf);
                 s2.to(turnr);
             }else if (data === 'stop'){
-                s1.to(stop);
+              s1.to(stop, 300);
                 s2.to(stop);
             }else if (data === 'rev'){
                 s1.to(rev);
