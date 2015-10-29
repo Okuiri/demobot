@@ -14,7 +14,9 @@ controller.on('error', function(data) {
 });
 
 controller.on('right:move', function(data) {
-  console.log('turn:' + data.x);
+  if(data.x >= 0 && data.x < 63) console.log('left');
+  else if(data.x >= 180) console.log('right');
+  else console.log('stop');
 });
 
 controller.on('left:move', function(data){
