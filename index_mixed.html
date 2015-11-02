@@ -60,39 +60,31 @@
 
         </div>
       </div><!-- row-->
-    <script>
-      var socket = io();
+    <script>      var socket = io();
 
-      $('#fwd').mousedown(function(){
-         socket.emit('cmd', 'fwd')
-      })
-      .mouseup(function(){
-         socket.emit('cmd', 'stop');
-       });
-	
-      $('#rev').mousedown(function(){
+      $('#fwd').on({ 'touchstart': function(){
+         socket.emit('cmd','fwd');
+      }, 'touchend' : function(){
+         socket.emit('cmd','stop');
+      }}); 
+     
+      $('#rev').on({ 'touchstart': function(){
+         socket.emit('cmd','rev');
+      }, 'touchend' : function(){
+         socket.emit('cmd','stop');
+      }}); 
 
-        socket.emit('cmd', 'rev')
-      })
-      .mouseup(function(){
-        socket.emit('cmd', 'stop');
-      });
+     $('#left').on({ 'touchstart': function(){
+         socket.emit('cmd','left');
+      }, 'touchend' : function(){
+         socket.emit('cmd','stop');
+      }}); 
 
-      $('#left').mousedown(function(){
-        socket.emit('cmd', 'left');
-      })
-      .mouseup(function(){
-        socket.emit('cmd', 'stop');
-      });
-
-      $('#right').mousedown(function(){
-        socket.emit('cmd', 'right');
-      })
-      .mouseup(function(){
-        socket.emit('cmd', 'stop');
-      });
-    
-   
+     $('#right').on({ 'touchstart': function(){
+         socket.emit('cmd','right');
+      }, 'touchend' : function(){
+         socket.emit('cmd','stop');
+      }}); 
 
     </script>
     </div> <!-- container -->
