@@ -60,7 +60,8 @@
 
         </div>
       </div><!-- row-->
-    <script>      var socket = io();
+    <script>
+      var socket = io();
 
       $('#fwd').on({ 'touchstart': function(){
          socket.emit('cmd','fwd');
