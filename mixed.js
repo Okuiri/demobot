@@ -57,8 +57,12 @@ board.on("ready", function(){
         s1.to(rev);
         s2.to(stop);
       }
-
-    });
+     });
+     
+      socket.on('debug',function(data){
+        console.log(data);
+      });
+    
     
   });
 

@@ -25,14 +25,14 @@
 
       <div class="row">
         <div class="col-xs-4">
-          <button id="fl" class="btn btn-lg btn-primary">&#8598</button>
+
         </div>
         
         <div class="col-xs-4">
           <button id="fwd" class="btn btn-lg btn-primary">&#8593</button>
         </div>
         <div class="col-xs-4">
-          <button id="fr" class="btn btn-lg btn-primary">&#8599</button>
+
         </div>
       </div>
       
@@ -41,7 +41,7 @@
           <button id="left" class="btn btn-lg btn-primary">&#8592</button>
         </div>
         <div class="col-xs-4">
-          <button id="stop" class="btn btn-lg btn-primary">STOP</button>            
+
         </div>
         <div class="col-xs-4" >
           <button id="right" class="btn btn-lg btn-primary">&#8594</button>
@@ -50,46 +50,49 @@
       
       <div class="row">
         <div class="col-xs-4">
-          <button id="rl" class="btn btn-lg btn-primary">&#8601</button>
+
         </div>
         
         <div class="col-xs-4">
           <button id="rev" class="btn btn-lg btn-primary">&#8595</button>
         </div>
         <div class="col-xs-4">
-          <button id="rr" class="btn btn-lg btn-primary">&#8600</button>
+
         </div>
       </div><!-- row-->
     <script>
       var socket = io();
 
-      $('#fwd').click(function(){
-      socket.emit('cmd', 'fwd');
-      });
-      
-      $('#fl').click(function(){
-      socket.emit('cmd', 'fl');
+      $('#fwd').mousedown(function(){
+         socket.emit('cmd', 'fwd')
+      })
+      .mouseup(function(){
+         socket.emit('cmd', 'stop');
+       });
+	
+      $('#rev').mousedown(function(){
+
+        socket.emit('cmd', 'rev')
+      })
+      .mouseup(function(){
+        socket.emit('cmd', 'stop');
       });
 
-      $('#fl').click(function(){
-      socket.emit('cmd', 'fr');
+      $('#left').mousedown(function(){
+        socket.emit('cmd', 'left');
+      })
+      .mouseup(function(){
+        socket.emit('cmd', 'stop');
       });
 
-      $('#rev').click(function(){
-      socket.emit('cmd', 'rev');
+      $('#right').mousedown(function(){
+        socket.emit('cmd', 'right');
+      })
+      .mouseup(function(){
+        socket.emit('cmd', 'stop');
       });
-
-      $('#stop').click(function(){
-      socket.emit('cmd', 'stop');
-      });
-
-      $('#left').click(function(){
-      socket.emit('cmd', 'left');
-      });
-
-      $('#right').click(function(){
-      socket.emit('cmd', 'right');
-      });
+    
+   
 
     </script>
     </div> <!-- container -->
