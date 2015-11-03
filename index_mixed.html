@@ -3,7 +3,7 @@
   <head>
     <meta chrset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
     
     <title>Robot Demo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -12,6 +12,9 @@
     <style>
       button{
       min-width:90px;
+      }
+      .screen{
+        width=100%
       }
     </style>
   </head>
@@ -25,14 +28,12 @@
 
       <div class="row">
         <div class="col-xs-4">
-          <button id="scrnup" class="btn btn-lg btn-primary">Lift Screen</button>
         </div>
         
         <div class="col-xs-4">
           <button id="fwd" class="btn btn-lg btn-primary">&#8593</button>
         </div>
         <div class="col-xs-4">
-	  <button id="scrndown" class="btn btn-lg btn-primary">Lower Screen </button> 
         </div>
       </div>
       
@@ -60,6 +61,16 @@
 
         </div>
       </div><!-- row-->
+      <div class="row">
+        <div class="col-xs-4">
+          <button id="scrnup" class="btn btn-lg btn-primary">Screen &#8593</button>
+        </div>
+	<div class="col-xs-4">
+        </div>
+        <div class="col-xs-4">
+          <button id="scrndown" class="btn btn-lg btn-primary">Screen &#8595</button> 
+        </div> 
+      <div><!-- row -->
     <script>
       var socket = io();
 
@@ -86,7 +97,16 @@
       }, 'touchend' : function(){
          socket.emit('cmd','stop');
       }}); 
-
+      $('#scrnup').on({ 'touchstart': function(){
+         socket.emit('cmd', 'scrnup');
+      }, 'touchend': function(){
+         socket.emit('cmd', 'scrnstop');
+      }});
+      $('#scrndown').on({ 'touchstart': function(){
+         socket.emit('cmd', 'scrndown');
+      }, 'touchend': function(){
+         socket.emit('cmd', 'scrnstop');
+      }});
     </script>
     </div> <!-- container -->
   </body>

@@ -25,14 +25,22 @@ board.on("ready", function(){
   var move = new five.Pin(2);
   var dir = new five.Pin(3);
   var arduino = new five.Pin(4);
-  
+  var moving == false;  
   arduino.write(0x01);
 
   function up(){
      move.write(0x01);
      dir.write(0x01);
   }
-  up();
+  function down(){
+    move.write(0x01);
+    dir.write(0x00);
+  }
+
+  function stop(){
+    move.write(0x00);
+  } 
+
   this.repl.inject({
     s1: s1,
     s2: s2,
@@ -44,41 +52,54 @@ board.on("ready", function(){
   });
 
   io.on('connection', function(socket){
-    up();
+
     socket.on('cmd', function(data){
-      if(data === 'fwd'){
+      if(data !== 'stop'){
+        moving = true;
+      }else{
+        moving = false;
+      } 
+      if(data === 'fwd' && !moving){
         s1.to(fwd);
         s2.to(stop);
-      }else if (data === 'fl'){
+      }else if (data === 'fl' && !moving){
         s1.to(fwd);
         s2.to(40);
-      }else if (data === 'fr'){
+      }else if (data === 'fr' && !moving){
         s1.to(fwd);
         s2.to(115);
-      }else if (data === 'left'){
+      }else if (data === 'left' && !moving){
         s1.to(fwd);
         s2.to(turnl);
-      }else if (data === 'right'){
+      }else if (data === 'right' && !moving){
         s1.to(fwd);
         s2.to(turnr);
       }else if (data === 'stop'){
         s1.to(stop, 300);
         s2.to(stop);
-      }else if (data === 'rev'){
+      }else if (data === 'rev' && !moving){
         s1.to(rev);
         s2.to(stop);
-      }else if(data ==='scrnup'){
-      }        
+      }else if(data ==='scrnup' && !moving){
+        up();
+      }else if(data ==='scrndown' && !moving){
+        down();
+      }
+      if(data === 'scrnstop'){
+        stop();
+      }       
      });
-     
-      socket.on('debug',function(data){
-        console.log(data);
-      });
-    
+
+    socket.on('debug',function(data){
+        if(!moving){
+      	  console.log(data);
+        }else if(moving && data === 'stop'){
+          console.log(data);
+        }
+    });
     
   });
 
-  
 });
 
 
