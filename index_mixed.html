@@ -63,12 +63,12 @@
       </div><!-- row-->
       <div class="row">
         <div class="col-xs-4">
-          <button id="scrnup" class="btn btn-lg btn-primary">Screen &#8593</button>
+          <!--<button id="scrnup" class="btn btn-lg btn-primary">Screen &#8593</button>-->
         </div>
 	<div class="col-xs-4">
         </div>
         <div class="col-xs-4">
-          <button id="scrndown" class="btn btn-lg btn-primary">Screen &#8595</button> 
+          <!--<button id="scrndown" class="btn btn-lg btn-primary">Screen &#8595</button> -->
         </div> 
       <div><!-- row -->
     <script>
@@ -78,6 +78,7 @@
          socket.emit('cmd','fwd');
       }, 'touchend' : function(){
          socket.emit('cmd','stop');
+	 console.log('stop');
       }}); 
      
       $('#rev').on({ 'touchstart': function(){

@@ -25,21 +25,13 @@ board.on("ready", function(){
   var move = new five.Pin(2);
   var dir = new five.Pin(3);
   var arduino = new five.Pin(4);
-  var moving == false;  
+  
   arduino.write(0x01);
 
   function up(){
      move.write(0x01);
      dir.write(0x01);
   }
-  function down(){
-    move.write(0x01);
-    dir.write(0x00);
-  }
-
-  function stop(){
-    move.write(0x00);
-  } 
 
   this.repl.inject({
     s1: s1,
@@ -54,52 +46,39 @@ board.on("ready", function(){
   io.on('connection', function(socket){
 
     socket.on('cmd', function(data){
-      if(data !== 'stop'){
-        moving = true;
-      }else{
-        moving = false;
-      } 
-      if(data === 'fwd' && !moving){
+      if(data === 'fwd'){
         s1.to(fwd);
         s2.to(stop);
-      }else if (data === 'fl' && !moving){
+      }else if (data === 'fl'){
         s1.to(fwd);
         s2.to(40);
-      }else if (data === 'fr' && !moving){
+      }else if (data === 'fr'){
         s1.to(fwd);
         s2.to(115);
-      }else if (data === 'left' && !moving){
+      }else if (data === 'left'){
         s1.to(fwd);
         s2.to(turnl);
-      }else if (data === 'right' && !moving){
+      }else if (data === 'right'){
         s1.to(fwd);
         s2.to(turnr);
       }else if (data === 'stop'){
         s1.to(stop, 300);
         s2.to(stop);
-      }else if (data === 'rev' && !moving){
+      }else if (data === 'rev'){
         s1.to(rev);
         s2.to(stop);
-      }else if(data ==='scrnup' && !moving){
-        up();
-      }else if(data ==='scrndown' && !moving){
-        down();
-      }
-      if(data === 'scrnstop'){
-        stop();
-      }       
+      }else if(data ==='scrnup'){
+      }        
      });
-
-    socket.on('debug',function(data){
-        if(!moving){
-      	  console.log(data);
-        }else if(moving && data === 'stop'){
-          console.log(data);
-        }
-    });
+     
+      socket.on('debug',function(data){
+        console.log(data);
+      });
+    
     
   });
 
+  
 });
 
 
