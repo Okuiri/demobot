@@ -7,10 +7,14 @@ Current Hardware:
   * 2 Pololu A4988 Stepper Motor 
     
 ## Things to be accomplished
+This branch is the API that will allow for automated control of the robot.
+In order to control the robot, there will be a REST API through NodeJS
 
-There are quite a few things that still need to be completed for this robot.
+The C# Program that is running and gathering the data from the Kinect
+will be throwing REST API Requests in order to control the robot.
 
-Features to be Implemented:
-  * Mixed Mode Steering
-  * Event Based Motor Control
-  * PS3 Controller Joystick 
+All the robots hardware interfacing is done through nodejs and the johnny-five framework.
+
+TODO: Create the C# REST Client
+TODO: Add authentication so no arbitrary requests can control the robot
+TODO: Implement some form of JSON to adjust movement values mid control
