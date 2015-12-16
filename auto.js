@@ -50,51 +50,39 @@ board.on('ready', function(){
 	var turnr_2 = 30;
 	var stop = 85;
 
+	var cmdTimers =[];
+	var move = '';
+	app.get('/api/:page', function(req,res){
 
-	
-	app.get('/api/forward', function(req,res){
-		s1.to(fwd);
-		s2.to(stop);
-		setTimeout(function(){
-			wheelCtrl.stop(s1,s2);
-			s1.to(85);
-			s2.to(85);
-		}, 1000);
+		clearTimeout(cmdTimers.pop());
+		var newTimer = setTimeout(function(){
+			s1.to(stop);
+			s2.to(stop);
+			console.log('stop');
+			move = 'stop';
+		}, 250);
+
+		cmdTimers.push(newTimer);
+		if(move != req.params.page){
+			console.log(move);
+			move = req.params.page;
+			if(move == 'forward'){
+				s1.to(fwd);
+				s2.to(fwd);
+			}else if(move == 'left'){
+				s1.to(turnl_1);
+				s1.to(turnl_2);
+			}else if(move == 'right'),{
+				s1.to(turnr_1);
+				s2.to(turnr_2);	
+			}else if(move == 'backward'){
+				s1.to(back);
+				s2.to(back);	
+			}
+		}
 		res.end();
 	});
 
-	app.get('/api/left', function(req,res){
-		s1.to(turnl_1);
-		s1.to(turnl_2);
-		setTimeout(function(){
-			wheelCtrl.stop(s1,s2);
-			s1.to(85);
-			s2.to(85);
-		}, 1000);
-		res.end();
-	});
-	
-	app.get('/api/right', function(req,res){
-		s1.to(turnr_1);
-		s2.to(turnr_2);	
-		setTimeout(function(){
-			wheelCtrl.stop(s1,s2);
-			s1.to(85);
-			s2.to(85);
-		}, 1000);
-		res.end();
-	});
-	
-	app.get('/api/backward', function(req,res){
-		s1.to(back);
-		s2.to(stop);	
-		setTimeout(function(){
-			wheelCtrl.stop(s1,s2);
-			s1.to(85);
-			s2.to(85);
-		}, 1000);
-		res.end();
-	});
 	
 	app.get('/api/camup', function(req,res){
 		step.write(1);
@@ -111,5 +99,6 @@ board.on('ready', function(){
 		dir.write(0);
 		res.end();
 	});
+
 });
 app.listen(3000); 
