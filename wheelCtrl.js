@@ -1,19 +1,19 @@
 #!/usr/bin/env node
-modMode = '';
+var modMode = '';
 
-fwd = 0;
-back = 180;
-tunrl_1 = 30;
-turnl_2 = 130;
-turnr_1 = turnl_2;
-turnr_2 = turnl_1;
+var fwd = 0;
+var back = 180;
+var turnl_1 = 30;
+var turnl_2 = 130;
+var turnr_1 = turnl_2;
+var turnr_2 = turnl_1;
 
 module.exports = {
 	setMode: function(mode){
 		modMode	= mode;
 	},
 
-	left: function(){
+	left: function(s1,s2){
 		if(modMode === 'debug'){
 			console.log('moving left');
 		} else {
@@ -22,7 +22,7 @@ module.exports = {
 		}
 	},
 
-	right: function(){
+	right: function(s1,s2){
 		if(modMode === 'debug'){
 			console.log('moving right')
 		} else {
@@ -31,21 +31,31 @@ module.exports = {
 		}
 	},
 
-	forward: function(){
+	forward: function(s1,s2){
 		if(modMode === 'debug'){
 			console.log('moving forward');
 		} else {
 			s1.to(fwd);
 			s2.to(fwd);
+			
 		}
 	},
 
-	reverse: function(){
+	reverse: function(s1,s2){
 		if(modMode === 'debug'){
 			console.log('moving backward');
 		}else{
 			s1.to(back);
 			s2.to(back);
+		}
+	},
+	
+	stop: function(s1,s2){
+		if(modMode === 'debug'){
+			console.log('stop');
+		}else{
+			s1.to(85);
+			s2.to(85);
 		}
 	}
 }
